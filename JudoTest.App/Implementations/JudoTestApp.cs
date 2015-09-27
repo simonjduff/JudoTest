@@ -7,8 +7,8 @@ namespace JudoTest.App.Implementations
     {
         private readonly IFileService _fileService;
         private readonly IWordSplitter _wordSplitter;
-        private IWordCounter _wordCounter;
-        private IConsole _console;
+        private readonly IWordCounter _wordCounter;
+        private readonly IConsole _console;
 
         public JudoTestApp(IFileService fileService, IWordSplitter wordSplitter, IWordCounter wordCounter, IConsole console)
         {
