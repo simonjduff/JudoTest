@@ -17,13 +17,15 @@ namespace JudoTest.Tests
         private IJudoTestApp _judoTestApp;
         private Mock<IWordSplitter> _wordSplitter;
         private string _filename;
+        private Mock<IWordCounter> _wordCounter;
 
         [SetUp]
         public void Setup()
         {
             _fileService = new Mock<IFileService>();
             _wordSplitter = new Mock<IWordSplitter>();
-            _judoTestApp = new JudoTestApp(_fileService.Object, _wordSplitter.Object);
+            _wordCounter = new Mock<IWordCounter>();
+            _judoTestApp = new JudoTestApp(_fileService.Object, _wordSplitter.Object, _wordCounter.Object);
         }
 
         [Test]
@@ -42,6 +44,16 @@ namespace JudoTest.Tests
             _judoTestApp.Run(_filename);
 
             _wordSplitter.Verify(q => q.Split(inputData));
+        }
+
+        [Test]
+        public void JudoTestApp_CountsWords()
+        {
+            var inputData = new[] {"one", "two", "three", "one"};
+            _wordSplitter.Setup(q => q.Split(It.IsAny<string>())).Returns(inputData);
+            _judoTestApp.Run(_filename);
+            
+            _wordCounter.Verify(q => q.Count(inputData));
         }
     }
 }

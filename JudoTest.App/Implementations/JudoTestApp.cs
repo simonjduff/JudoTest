@@ -5,10 +5,12 @@ namespace JudoTest.App.Implementations
     public class JudoTestApp : IJudoTestApp
     {
         private readonly IFileService _fileService;
-        private IWordSplitter _wordSplitter;
+        private readonly IWordSplitter _wordSplitter;
+        private IWordCounter _wordCounter;
 
-        public JudoTestApp(IFileService fileService, IWordSplitter wordSplitter)
+        public JudoTestApp(IFileService fileService, IWordSplitter wordSplitter, IWordCounter wordCounter)
         {
+            _wordCounter = wordCounter;
             _wordSplitter = wordSplitter;
             _fileService = fileService;
         }
@@ -17,6 +19,7 @@ namespace JudoTest.App.Implementations
         {
             var text = _fileService.ReadAllText(filename);
             var words = _wordSplitter.Split(text);
+            var counts = _wordCounter.Count(words);
         }
     }
 }
