@@ -2,6 +2,6 @@ namespace JudoTest.App.Interfaces
 {
     public interface IFileService
     {
-        void ReadAllText(string filename);
+        string ReadAllText(string filename);
     }
 }

@@ -46,6 +46,7 @@
     <Compile Include="Implementations\JudoTestApp.cs" />
     <Compile Include="Interfaces\IFileService.cs" />
     <Compile Include="Interfaces\IJudoTestApp.cs" />
+    <Compile Include="Interfaces\IWordSplitter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
