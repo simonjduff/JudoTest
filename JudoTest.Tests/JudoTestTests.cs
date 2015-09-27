@@ -72,8 +72,8 @@ namespace JudoTest.Tests
             _judoTestApp.Run(_filename);
 
             Assert.AreEqual("            one              2", _console.OutputLines[0]);
-            Assert.AreEqual("            two              3", _console.OutputLines[1]);
-            Assert.AreEqual("          three              5", _console.OutputLines[2]);
+            Assert.AreEqual("          three              5", _console.OutputLines[1]);
+            Assert.AreEqual("            two              3", _console.OutputLines[2]);
         }
 
         public class FakeConsole : IConsole

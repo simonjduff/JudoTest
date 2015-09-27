@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Linq;
 using JudoTest.App.Interfaces;
 
 namespace JudoTest.App.Implementations
@@ -24,7 +25,7 @@ namespace JudoTest.App.Implementations
             var words = _wordSplitter.Split(text);
             var counts = _wordCounter.Count(words);
 
-            foreach (var count in counts.Keys)
+            foreach (var count in counts.Keys.OrderBy(q => q))
             {
                 _console.WriteLine("{0,15}{1,15}", count, counts[count]);
             }
