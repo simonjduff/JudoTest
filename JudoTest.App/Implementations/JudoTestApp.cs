@@ -10,9 +10,11 @@ namespace JudoTest.App.Implementations
         private readonly IWordSplitter _wordSplitter;
         private readonly IWordCounter _wordCounter;
         private readonly IConsole _console;
+        private ICompoundFilter _compoundFilter;
 
-        public JudoTestApp(IFileService fileService, IWordSplitter wordSplitter, IWordCounter wordCounter, IConsole console)
+        public JudoTestApp(IFileService fileService, IWordSplitter wordSplitter, IWordCounter wordCounter, IConsole console, ICompoundFilter compoundFilter)
         {
+            _compoundFilter = compoundFilter;
             _console = console;
             _wordCounter = wordCounter;
             _wordSplitter = wordSplitter;
@@ -28,6 +30,13 @@ namespace JudoTest.App.Implementations
             foreach (var count in counts.Keys.OrderBy(q => q))
             {
                 _console.WriteLine("{0,15}{1,15}", count, counts[count]);
+            }
+
+            var compounds = _compoundFilter.Filter(words);
+
+            foreach (var word in compounds.OrderBy(q => q))
+            {
+                _console.WriteLine(word);
             }
         }
     }

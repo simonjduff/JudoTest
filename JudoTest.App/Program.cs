@@ -11,7 +11,7 @@ namespace JudoTest.App
     {
         static void Main(string[] args)
         {
-            var app = new JudoTestApp(new FileService(), new WordSplitter(), new WordCounter(), new ConsoleWrapper());
+            var app = new JudoTestApp(new FileService(), new WordSplitter(), new WordCounter(), new ConsoleWrapper(), new CompoundFilter());
 
             app.Run("fileinput.txt");
         }

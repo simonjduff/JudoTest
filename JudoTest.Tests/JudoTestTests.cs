@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using JudoTest.App.Implementations;
 using JudoTest.App.Interfaces;
 using Moq;
@@ -19,6 +15,7 @@ namespace JudoTest.Tests
         private string _filename;
         private Mock<IWordCounter> _wordCounter;
         private FakeConsole _console;
+        private Mock<ICompoundFilter> _compoundFilter;
 
         [SetUp]
         public void Setup()
@@ -28,7 +25,8 @@ namespace JudoTest.Tests
             _wordCounter = new Mock<IWordCounter>();
             _wordCounter.Setup(q => q.Count(It.IsAny<string[]>())).Returns(new Dictionary<string, int>());
             _console = new FakeConsole();
-            _judoTestApp = new JudoTestApp(_fileService.Object, _wordSplitter.Object, _wordCounter.Object, _console);
+            _compoundFilter = new Mock<ICompoundFilter>();
+            _judoTestApp = new JudoTestApp(_fileService.Object, _wordSplitter.Object, _wordCounter.Object, _console, _compoundFilter.Object);
         }
 
         [Test]
@@ -74,6 +72,30 @@ namespace JudoTest.Tests
             Assert.AreEqual("            one              2", _console.OutputLines[0]);
             Assert.AreEqual("          three              5", _console.OutputLines[1]);
             Assert.AreEqual("            two              3", _console.OutputLines[2]);
+        }
+
+        [Test]
+        public void JudoTestApp_FiltersCompounds()
+        {
+            var inputData =
+                new[] {"al", "albums", "aver", "bar", "barely", "be", "befoul", "bums", "by", "cat", "con", "convex", "ely",
+                    "foul", "here", "hereby", "jig", "jigsaw", "or", "saw", "tail", "tailor", "vex", "we", "weaver"};
+            _wordSplitter.Setup(q => q.Split(It.IsAny<string>())).Returns(inputData);
+            _judoTestApp.Run(_filename);
+
+            _compoundFilter.Verify(q => q.Filter(inputData));
+        }
+
+        [Test]
+        public void JudoTestApp_PrintsCompounds()
+        {
+            var inputData = new[] {"one", "two", "three"};
+            _compoundFilter.Setup(q => q.Filter(It.IsAny<string[]>())).Returns(inputData);
+            _judoTestApp.Run(_filename);
+
+            Assert.AreEqual("one", _console.OutputLines[0]);
+            Assert.AreEqual("three", _console.OutputLines[1]);
+            Assert.AreEqual("two", _console.OutputLines[2]);
         }
 
         public class FakeConsole : IConsole

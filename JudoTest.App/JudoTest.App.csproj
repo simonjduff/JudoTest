@@ -43,11 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementations\CompoundFilter.cs" />
     <Compile Include="Implementations\ConsoleWrapper.cs" />
     <Compile Include="Implementations\FileService.cs" />
     <Compile Include="Implementations\JudoTestApp.cs" />
     <Compile Include="Implementations\WordCounter.cs" />
     <Compile Include="Implementations\WordSplitter.cs" />
+    <Compile Include="Interfaces\ICompoundFilter.cs" />
     <Compile Include="Interfaces\IConsole.cs" />
     <Compile Include="Interfaces\IFileService.cs" />
     <Compile Include="Interfaces\IJudoTestApp.cs" />
