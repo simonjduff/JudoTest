@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementations\JudoTestApp.cs" />
+    <Compile Include="Interfaces\IFileService.cs" />
+    <Compile Include="Interfaces\IJudoTestApp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
